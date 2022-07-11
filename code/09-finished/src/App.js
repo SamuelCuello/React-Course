@@ -2,6 +2,7 @@ import React, { useState } from "react";
 
 import NewExpense from "./components/NewExpense/NewExpense";
 import Expenses from "./components/Expenses/Expenses";
+import ExpenseChart from "./components/Expenses/ExpenseChart";
 
 const DUMMY_EXPENSES = [
   {
@@ -31,13 +32,12 @@ const App = () => {
   const [expenses, setExpenses] = useState(DUMMY_EXPENSES);
   const [filteredYear, setFilteredYear] = useState("2020");
 
-
   const filterChangeHandler = (selectedYear) => {
     setFilteredYear(selectedYear);
     const filteredExpenses = [...savedExpenses].filter(
       (expense) => expense.date.getFullYear() === +selectedYear
     );
-    console.log(filteredExpenses);
+
     setExpenses(filteredExpenses);
   };
 
@@ -59,6 +59,7 @@ const App = () => {
   return (
     <div>
       <NewExpense onAddExpense={addExpenseHandler} />
+      <ExpenseChart expenses={expenses} />
       <Expenses
         items={expenses}
         selected={filteredYear}
